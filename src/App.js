@@ -1,38 +1,30 @@
 import _ from 'lodash'
 import React, { useState } from 'react';
 import './App.css';
-import "materialize-css/dist/css/materialize.min.css";
-import "materialize-css/dist/js/materialize.min.js";
 import { Card, Icon, Image, Input, Table } from 'semantic-ui-react';
 import Moment from 'react-moment';
 
 function App() {
   const [input, setInput] = useState("");
   const baseUrl = `https://api.github.com/users/${input}`;
+  const repoUrl = `https://api.github.com/users/${input}/repos`
   const [userdata, setUserdata] = useState("");
-  const [column, setcolumn] = useState(null);
-  const tableData = [
-    { name: 'John', age: 15, gender: 'Male' },
-    { name: 'Amber', age: 40, gender: 'Female' },
-    { name: 'Leslie', age: 25, gender: 'Other' },
-    { name: 'Ben', age: 70, gender: 'Male' },
-  ]
-  const [data, setdata] = useState(tableData);
-  const [direction, setdirection] = useState(null);
+  const [repoData, setRepoData] = useState([]);
+  const [column, setColumn] = useState(null);
+  const [data, setData] = useState("");
+  const [direction, setDirection] = useState(null);
 
   const handleSort = (clickedColumn) => () => {
 
     if (column !== clickedColumn) {
 
-      setcolumn(clickedColumn)
-      setdata(_.sortBy(data, [clickedColumn]))
-      setdirection('ascending')
-
-
+      setColumn(clickedColumn)
+      setData(_.sortBy(repoData, [clickedColumn]))
+      setDirection('ascending')
       return
     }
-    setdata(data.reverse())
-    setdirection(direction === 'ascending' ? 'descending' : 'ascending')
+    setData(repoData.reverse())
+    setDirection(direction === 'ascending' ? 'descending' : 'ascending')
 
   }
 
@@ -47,11 +39,20 @@ function App() {
           setUserdata(data)
         }
 
-        )
-      console.log(userdata);
+        );
+      fetch(repoUrl)
+        .then(res =>
+          res.json()
 
-      console.log(baseUrl);
-      console.log(input);
+        )
+        .then(data => {
+          setRepoData(data)
+          console.log(repoData);
+
+        }
+
+        )
+
       setInput("")
     }
   }
@@ -118,12 +119,15 @@ function App() {
             </Table.Row>
           </Table.Header>
           <Table.Body>
+            {repoData.map(repos => {
+              return <Table.Row key={""}>
 
-            <Table.Row key={""}>
-              <Table.Cell>{userdata.login}</Table.Cell>
-              <Table.Cell>{""}</Table.Cell>
-              <Table.Cell>{""}</Table.Cell>
-            </Table.Row>
+                <Table.Cell>{repos.name}</Table.Cell>
+                <Table.Cell>{repos.full_name}</Table.Cell>
+                <Table.Cell>{repos.created_at}</Table.Cell>
+              </Table.Row>
+            })}
+
 
           </Table.Body>
         </Table>
