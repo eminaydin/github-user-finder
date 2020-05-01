@@ -28,8 +28,6 @@ function App() {
 
   }
 
-
-
   function search(e) {
 
     if (e.key === "Enter") {
@@ -59,80 +57,82 @@ function App() {
 
   return (
     <div className="app">
-      <div className="form">
-        <Input icon='users' iconPosition='left' placeholder='Search users...'
-          onChange={e => { setInput(e.target.value) }}
-          value={input}
-          onKeyDown={search} />
-      </div>
-      <Card className="ui-card">
-        <Image src={userdata.avatar_url} wrapped ui={false} />
-        <Card.Content>
-          <Card.Header>{userdata.login}</Card.Header>
-          <Card.Header>{userdata.location}</Card.Header>
-          <Card.Meta>
-            <span className='date'> Member since: <Moment format="DD-MM-YYYY">
-              {userdata.created_at}
-            </Moment></span>
-          </Card.Meta>
-          <Card.Description>
-            {userdata.bio}
-          </Card.Description>
-        </Card.Content>
-        <Card.Content extra>
+      <div className="outer-grid">
+        <div className="form">
+          <Input icon='users' iconPosition='left' placeholder='Search users...'
+            onChange={e => { setInput(e.target.value) }}
+            value={input}
+            onKeyDown={search} />
+        </div>
+        <Card className="ui-card">
+          <Image src={userdata.avatar_url} wrapped ui={false} />
+          <Card.Content>
+            <Card.Header>{userdata.login}</Card.Header>
+            <Card.Header>{userdata.location}</Card.Header>
+            <Card.Meta>
+              <span className='date'> Member since: <Moment format="DD-MM-YYYY">
+                {userdata.created_at}
+              </Moment></span>
+            </Card.Meta>
+            <Card.Description>
+              {userdata.bio}
+            </Card.Description>
+          </Card.Content>
+          <Card.Content extra>
 
-          <a>
-            <Icon name='user' />
-            {userdata.followers} Followers
+            <a>
+              <Icon name='user' />
+              {userdata.followers} Followers
           </a>
-        </Card.Content>
-        <Card.Content extra>
-          <a>
-            <Icon name='user' />
-            {userdata.followers} Following
+          </Card.Content>
+          <Card.Content extra>
+            <a>
+              <Icon name='user' />
+              {userdata.followers} Following
       </a>
-        </Card.Content>
-      </Card>
-      <div className="table">
+          </Card.Content>
+        </Card>
+        <div className="table">
 
-        <Table sortable celled fixed>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell
-                sorted={column === 'name' ? direction : null}
-                onClick={handleSort('name')}
-              >
-                Name
+          <Table sortable celled fixed>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell
+                  sorted={column === 'name' ? direction : null}
+                  onClick={handleSort('name')}
+                >
+                  Repository Name
             </Table.HeaderCell>
-              <Table.HeaderCell
-                sorted={column === 'age' ? direction : null}
-                onClick={handleSort('age')}
-              >
-                Age
+                <Table.HeaderCell
+                  sorted={column === 'age' ? direction : null}
+                  onClick={handleSort('age')}
+                >
+                  Description
             </Table.HeaderCell>
-              <Table.HeaderCell
-                sorted={column === 'gender' ? direction : null}
-                onClick={handleSort('gender')}
-              >
-                Gender
+                <Table.HeaderCell
+                  sorted={column === 'gender' ? direction : null}
+                  onClick={handleSort('gender')}
+                >
+                  Created At
             </Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {repoData.map(repos => {
-              return <Table.Row key={""}>
-
-                <Table.Cell>{repos.name}</Table.Cell>
-                <Table.Cell>{repos.full_name}</Table.Cell>
-                <Table.Cell>{repos.created_at}</Table.Cell>
               </Table.Row>
-            })}
+            </Table.Header>
+            <Table.Body>
+              {repoData.map(repos => {
+                return <Table.Row key={""}>
+
+                  <Table.Cell>{repos.name}</Table.Cell>
+                  <Table.Cell>{repos.full_name}</Table.Cell>
+                  <Table.Cell>{repos.created_at}</Table.Cell>
+                </Table.Row>
+              })}
 
 
-          </Table.Body>
-        </Table>
+            </Table.Body>
+          </Table>
+        </div>
       </div>
-    </div>
+    </div >
   );
 }
 
