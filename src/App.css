@@ -1,4 +1,16 @@
 .app {
+  display: flex;
+  flex-direction: column;
   height: 100vh;
-  margin: 20px auto;
+}
+.form {
+  display: flex;
+  justify-content: center;
+}
+.ui-card {
+  margin: 20px !important;
+  top: 10%;
+}
+.table {
+  margin-top: 10%;
 }
