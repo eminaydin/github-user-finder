@@ -1,9 +1,10 @@
 
 import React, { useState } from 'react';
 import './App.css';
-import { Card, Icon, Image, Input, Table, Grid } from 'semantic-ui-react';
+import { Card, Icon, Image, Input, Table, Grid, Menu } from 'semantic-ui-react';
 import UserTable from './components/userInfoTable/UserTable';
 import UserCard from './components/userCard/UserCard';
+import Navbar from "./components/Navbar/Navbar"
 
 
 function App() {
@@ -62,7 +63,7 @@ function App() {
         </Grid>
 
 
-        : null}
+        : <Navbar />}
 
 
 
