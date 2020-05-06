@@ -8,12 +8,20 @@ const Navbar = () => {
         setActiveItem(name)
     }
 
+    function popularRepos(e, { name }) {
+        setActiveItem(name)
+        fetch("https://api.github.com/search/repositories?q=stars:%3E1+language:Ruby&sort=stars&order=desc&type=Repositories%27")
+            .then(res => res.json())
+            .then(data => console.log(data))
+
+    }
+
     return (
         <Menu fluid widths={3}>
             <Menu.Item
                 name='popularRepos'
                 active={activeItem === 'popularRepos'}
-                onClick={handleItemClick}
+                onClick={popularRepos}
             />
             <Menu.Item
                 name='MostCommittedRepos'
