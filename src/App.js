@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import './App.css';
-import { Card, Icon, Image, Input, Table, Grid, Menu } from 'semantic-ui-react';
+import { Input, Grid, } from 'semantic-ui-react';
 import UserTable from './components/userInfoTable/UserTable';
 import UserCard from './components/userCard/UserCard';
 import Navbar from "./components/Navbar/Navbar"
