@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
-import { Menu } from 'semantic-ui-react'
+import { Menu, Segment, Loader, Dimmer } from 'semantic-ui-react'
 import PopularCards from '../PopularCards/PopularCards';
 
 const Navbar = () => {
     const [activeItem, setActiveItem] = useState("");
     const [popularRepos, setPopularRepos] = useState("");
     const [navClicked, setNavClicked] = useState(false);
+    const [loading, setLoading] = useState(false);
 
 
     function handleItemClick(e, { name }) {
+        setLoading(true)
         setActiveItem(name)
         fetch(`https://api.github.com/search/repositories?q=stars:%3E1+language:${name}&sort=stars&order=desc&type=Repositories%27`)
             .then(res => res.json())
             .then(data => {
                 setPopularRepos(data)
                 setNavClicked(true)
+                setLoading(false)
             }
             )
 
@@ -46,6 +49,12 @@ const Navbar = () => {
                 />
             </Menu>
             {navClicked ? <PopularCards popularRepos={popularRepos} /> : null}
+            {loading ? <Segment>
+                <Dimmer active style={{ zIndex: 1 }}>
+                    <Loader size='massive'>Loading</Loader>
+                </Dimmer>
+
+            </Segment> : null}
         </>
     );
 }

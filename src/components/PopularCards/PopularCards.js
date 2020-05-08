@@ -3,11 +3,7 @@ import { Button, Card, Image, CardGroup } from 'semantic-ui-react'
 
 const PopularCards = (props) => {
 
-    const [isClicked, setIsClicked] = useState(false);
 
-    const clickHandler = () => {
-        setIsClicked(true)
-    }
     return (
         <CardGroup>
             {props.popularRepos.items.map(e => {
