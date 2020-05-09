@@ -3,6 +3,7 @@ import { Card, Icon, Image } from 'semantic-ui-react';
 import Moment from 'react-moment';
 
 const UserCard = (props) => {
+
     return (
         <Card className="ui-card">
             <Image src={props.userData.avatar_url} wrapped ui={false} />
@@ -30,7 +31,9 @@ const UserCard = (props) => {
                     {props.userData.followers} Following
 </a>
             </Card.Content>
+
         </Card>
+
     );
 }
 

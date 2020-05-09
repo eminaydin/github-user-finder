@@ -5,7 +5,8 @@ import { Input, Grid, } from 'semantic-ui-react';
 import UserTable from './components/userInfoTable/UserTable';
 import UserCard from './components/userCard/UserCard';
 import Navbar from "./components/Navbar/Navbar"
-
+import Loader from 'react-loader-spinner'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 function App() {
   const [input, setInput] = useState("");
@@ -14,32 +15,36 @@ function App() {
   const [userData, setUserData] = useState("");
   const [repoData, setRepoData] = useState([]);
   const [searchDone, setSearchDone] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   function search(e) {
 
+
     if (e.key === "Enter") {
       setSearchDone(true)
-      fetch(baseUrl)
-        .then(res => res.json())
-        .then(data => {
-          setUserData(data)
-        }
+      setLoading(true)
+      setTimeout(() => {
+        setLoading(false)
+        setInput("")
+        fetch(baseUrl)
+          .then(res => res.json())
+          .then(data => {
+            setUserData(data)
+          }
+          );
+        fetch(repoUrl)
+          .then(res =>
+            res.json()
 
-        );
-      fetch(repoUrl)
-        .then(res =>
-          res.json()
+          )
+          .then(data => {
+            setRepoData(data)
+          }
+          )
+      }, 1000);
 
-        )
-        .then(data => {
-          setRepoData(data)
-        }
-        )
-      setInput("")
     }
   }
-  console.log(repoData);
-
   return (
     <div className="app">
       <Input icon='users' iconPosition='left' placeholder='Search users...'
@@ -54,17 +59,21 @@ function App() {
         <Grid celled>
           <Grid.Row>
             <Grid.Column width={3}>
-              <UserCard userData={userData} />
+              <UserCard userData={userData} loading={loading} />
             </Grid.Column>
             <Grid.Column width={13}>
-              <UserTable repoData={repoData} />
+              <UserTable repoData={repoData} loading={loading} />
             </Grid.Column>
           </Grid.Row>
         </Grid>
 
 
         : <Navbar />}
-
+      {
+        loading ? <div className="loading">
+          <Loader type="Circles" color="#FFFFE0" height={80} width={80} />
+        </div> : null
+      }
 
 
 

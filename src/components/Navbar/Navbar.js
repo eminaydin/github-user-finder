@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Menu, Segment, Loader, Dimmer } from 'semantic-ui-react'
+import { Menu, } from 'semantic-ui-react'
 import PopularCards from '../PopularCards/PopularCards';
+import Loader from 'react-loader-spinner'
 
 const Navbar = () => {
     const [activeItem, setActiveItem] = useState("");
@@ -49,12 +50,12 @@ const Navbar = () => {
                 />
             </Menu>
             {navClicked ? <PopularCards popularRepos={popularRepos} /> : null}
-            {loading ? <Segment>
-                <Dimmer active style={{ zIndex: 1 }}>
-                    <Loader size='massive'>Loading</Loader>
-                </Dimmer>
+            {loading ?
+                <div className="loading">
+                    <Loader type="Circles" color="#FFFFE0" height={80} width={80} />
+                </div>
 
-            </Segment> : null}
+                : null}
         </>
     );
 }
