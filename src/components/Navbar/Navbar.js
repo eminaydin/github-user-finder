@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Menu, } from 'semantic-ui-react'
 import PopularCards from '../PopularCards/PopularCards';
 import Loader from 'react-loader-spinner'
+import "../../App.css"
 
 const Navbar = () => {
     const [activeItem, setActiveItem] = useState("");
@@ -13,19 +14,23 @@ const Navbar = () => {
     function handleItemClick(e, { name }) {
         setLoading(true)
         setActiveItem(name)
-        fetch(`https://api.github.com/search/repositories?q=stars:%3E1+language:${name}&sort=stars&order=desc&type=Repositories%27`)
-            .then(res => res.json())
-            .then(data => {
-                setPopularRepos(data)
-                setNavClicked(true)
-                setLoading(false)
-            }
-            )
+        setTimeout(() => {
+            fetch(`https://api.github.com/search/repositories?q=stars:%3E1+language:${name}&sort=stars&order=desc&type=Repositories%27`)
+                .then(res => res.json())
+                .then(data => {
+                    setPopularRepos(data)
+                    setNavClicked(true)
+                    setLoading(false)
+                }
+                )
+        }, 200);
+
 
 
         console.log(popularRepos);
 
     }
+
 
     return (
         <>
@@ -49,7 +54,7 @@ const Navbar = () => {
                     onClick={handleItemClick}
                 />
             </Menu>
-            {navClicked ? <PopularCards popularRepos={popularRepos} /> : null}
+            {navClicked && <PopularCards popularRepos={popularRepos} />}
             {loading ?
                 <div className="loading">
                     <Loader type="Circles" color="#FFFFE0" height={80} width={80} />

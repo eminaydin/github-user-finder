@@ -28,7 +28,7 @@ const PopularCards = (props) => {
                             <Button.Group>
                                 <Button target="_blank" href={e.homepage}>Official Website</Button>
                                 <Button.Or />
-                                <Button positive target="_blank" href={e.html_url}> Github Profile</Button>
+                                <Button color="teal" target="_blank" href={e.html_url}> Github Profile</Button>
                             </Button.Group>
 
                         </Card.Content>
