@@ -27,15 +27,15 @@ const Navbar = () => {
 
 
 
-        console.log(popularRepos);
+
 
     }
-
+    console.log(loading);
 
     return (
         <>
             <h2>Search for Popular Repositories</h2>
-            <Menu fluid widths={3}>
+            <Menu pointing secondary>
                 <Menu.Item
                     name='Javascript'
                     active={activeItem === 'Javascript'}
@@ -53,14 +53,27 @@ const Navbar = () => {
                     active={activeItem === 'C++'}
                     onClick={handleItemClick}
                 />
+                <Menu.Item
+                    name='Java'
+                    active={activeItem === 'Java'}
+                    onClick={handleItemClick}
+                />
+                <Menu.Item
+                    name='PHP'
+                    active={activeItem === 'PHP'}
+                    onClick={handleItemClick}
+                />
+                <Menu.Item
+                    name='Python'
+                    active={activeItem === 'Python'}
+                    onClick={handleItemClick}
+                />
             </Menu>
             {navClicked && <PopularCards popularRepos={popularRepos} />}
-            {loading ?
+            {loading &&
                 <div className="loading">
                     <Loader type="Circles" color="#FFFFE0" height={80} width={80} />
-                </div>
-
-                : null}
+                </div>}
         </>
     );
 }
