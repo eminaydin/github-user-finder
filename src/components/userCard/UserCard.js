@@ -20,13 +20,13 @@ const UserCard = (props) => {
             </Card.Content>
             <Card.Content extra>
 
-                <a>
+                <a href=" ">
                     <Icon name='user' />
                     {props.userData.followers} Followers
   </a>
             </Card.Content>
             <Card.Content extra>
-                <a>
+                <a href=" ">
                     <Icon name='user' />
                     {props.userData.followers} Following
 </a>

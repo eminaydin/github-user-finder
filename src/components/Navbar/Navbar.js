@@ -24,16 +24,14 @@ const Navbar = () => {
                 }
                 )
         }, 200);
-
-
-
-
-
     }
-    console.log(loading);
 
     return (
         <>
+            {loading &&
+                <div className="loading">
+                    <Loader type="Circles" color="#FFFFE0" height={80} width={80} />
+                </div>}
             <h2>Search for Popular Repositories</h2>
             <Menu pointing secondary>
                 <Menu.Item
@@ -70,10 +68,7 @@ const Navbar = () => {
                 />
             </Menu>
             {navClicked && <PopularCards popularRepos={popularRepos} />}
-            {loading &&
-                <div className="loading">
-                    <Loader type="Circles" color="#FFFFE0" height={80} width={80} />
-                </div>}
+
         </>
     );
 }

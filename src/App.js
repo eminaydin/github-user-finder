@@ -76,10 +76,10 @@ function App() {
 
         <Grid celled>
           < Grid.Row >
-            <Grid.Column width={3}>
+            <Grid.Column width={5}>
               <UserCard userData={userData} loading={loading} />
             </Grid.Column>
-            <Grid.Column width={12}>
+            <Grid.Column width={10}>
               <UserTable repoData={repoData} loading={loading} />
             </Grid.Column>
           </Grid.Row>

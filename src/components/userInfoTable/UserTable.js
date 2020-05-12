@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Table } from 'semantic-ui-react';
-import _ from 'lodash'
 import Moment from 'react-moment';
 
 
