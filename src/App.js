@@ -1,12 +1,13 @@
 
 import React, { useState } from 'react';
 import './App.css';
-import { Form, Grid } from 'semantic-ui-react';
+import { Form, Segment } from 'semantic-ui-react';
 import UserTable from './components/userInfoTable/UserTable';
 import UserCard from './components/userCard/UserCard';
 import Navbar from "./components/Navbar/Navbar"
 import Loader from 'react-loader-spinner'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+
 function App() {
   const [input, setInput] = useState("");
   const baseUrl = `https://api.github.com/users/${input}`;
@@ -16,12 +17,10 @@ function App() {
   const [searchDone, setSearchDone] = useState(false);
   const [loading, setLoading] = useState(false);
   const [userUndefined, setUserUndefined] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   function search(e) {
-
-
     if (e.key === "Enter") {
-
       setLoading(true)
       setTimeout(() => {
         setInput("")
@@ -36,6 +35,7 @@ function App() {
               setUserUndefined(false)
             }
           }
+
           );
         fetch(repoUrl)
           .then(res =>
@@ -52,18 +52,27 @@ function App() {
             setLoading(false)
           }
           )
-      }, 1000);
 
+      }, 1000);
     }
   }
-
-
+  function loadingIcon(param) {
+    if (param === true) {
+      setIsLoading(true)
+    } else {
+      setIsLoading(false)
+    }
+  }
+  console.log(isLoading);
 
 
   return (
 
     <div className="app">
-
+      {isLoading &&
+        <div className="loading">
+          <Loader type="Circles" color="#FFFFE0" height={80} width={80} />
+        </div>}
       <Form.Input icon='users' iconPosition='left' placeholder='Search users...'
         onChange={e => { setInput(e.target.value) }}
         value={input}
@@ -73,19 +82,16 @@ function App() {
         {...userUndefined && { error: { content: "Username doesn't exist" } }}
       />
       {searchDone ?
+        <>
+          <Segment>
+            <UserCard userData={userData} loading={loading} />
 
-        <Grid celled>
-          < Grid.Row >
-            <Grid.Column width={5}>
-              <UserCard userData={userData} loading={loading} />
-            </Grid.Column>
-            <Grid.Column width={10}>
-              <UserTable repoData={repoData} loading={loading} />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-
-        : <Navbar />
+          </Segment>
+          <Segment>
+            <UserTable repoData={repoData} loading={loading} />
+          </Segment>
+        </>
+        : <Navbar setUserUndefined={setUserUndefined} parentFunc={loadingIcon} />
 
       }
 

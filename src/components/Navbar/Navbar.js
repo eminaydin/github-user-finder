@@ -4,7 +4,7 @@ import PopularCards from '../PopularCards/PopularCards';
 import Loader from 'react-loader-spinner'
 import "../../App.css"
 
-const Navbar = () => {
+const Navbar = (props) => {
     const [activeItem, setActiveItem] = useState("");
     const [popularRepos, setPopularRepos] = useState("");
     const [navClicked, setNavClicked] = useState(false);
@@ -12,6 +12,7 @@ const Navbar = () => {
 
 
     function handleItemClick(e, { name }) {
+        props.setUserUndefined(false)
         setLoading(true)
         setActiveItem(name)
         setTimeout(() => {
@@ -25,13 +26,13 @@ const Navbar = () => {
                 )
         }, 200);
     }
+    if (loading === true) {
+        props.parentFunc(true)
+    } else { props.parentFunc(false) }
 
     return (
         <>
-            {loading &&
-                <div className="loading">
-                    <Loader type="Circles" color="#FFFFE0" height={80} width={80} />
-                </div>}
+
             <h2>Search for Popular Repositories</h2>
             <Menu pointing secondary>
                 <Menu.Item
