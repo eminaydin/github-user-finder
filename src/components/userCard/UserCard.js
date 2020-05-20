@@ -1,21 +1,40 @@
 import React from 'react';
-import { List, Image } from 'semantic-ui-react';
+import { Card, Image, Icon } from 'semantic-ui-react';
 import Moment from 'react-moment';
 
 const UserCard = (props) => {
+    console.log(props.userData);
 
     return (
         <div className="user-card">
-            <Image src={props.userData.avatar_url} size="medium" />
-            <List divided style={{ margin: "auto" }}>
-                <h2>{props.userData.login}</h2>
-                <List.Item icon='users' content={`${props.userData.followers} Followers`} />
-                <List.Item icon='users' content={`${props.userData.following} Following`} />
-                <List.Item icon='marker' content={`${props.userData.location}`} />
-                <List.Item icon='users' content={`Member since: 
-                    ${<Moment format="DD-MM-YYYY"> props.userData.created_at </Moment>}
-                    `} />
-            </List>
+            <Card centered>
+                <Image src={props.userData.avatar_url} size="medium" wrapped ui={false} />
+                <Card.Content extra>
+                    <a>
+                        <Icon name='user circle' />
+                        {props.userData.login}
+                    </a>
+                </Card.Content>
+                <Card.Content extra>
+                    <a>
+                        <Icon name='user' />
+                        {props.userData.followers} Followers
+                    </a>
+                </Card.Content>
+                <Card.Content extra>
+                    <a>
+                        <Icon name='user secret' />
+                        {props.userData.following} Following
+                    </a>
+                </Card.Content>
+                <Card.Content extra>
+                    <a>
+                        <Icon name='time' />
+                        <Moment format="DD-MM-YYYY"> {props.userData.created_at} </Moment>
+                    </a>
+                </Card.Content>
+            </Card>
+
         </div>
 
     );
