@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Menu, } from 'semantic-ui-react'
+import { Menu, Header } from 'semantic-ui-react'
 import PopularCards from '../PopularCards/PopularCards';
-import Loader from 'react-loader-spinner'
 import "../../App.css"
+import UseAnimations from 'react-useanimations';
 
 const Navbar = (props) => {
     const [activeItem, setActiveItem] = useState("");
@@ -32,8 +32,12 @@ const Navbar = (props) => {
 
     return (
         <>
-
-            <h2>Search for Popular Repositories</h2>
+            <Header as='h2' icon textAlign='center'>
+                <UseAnimations animationKey="github" size={60} style={{
+                    margin: "auto"
+                }} />
+                <Header.Content>Search for Popular Repositories</Header.Content>
+            </Header>
             <Menu pointing secondary>
                 <Menu.Item
                     name='Javascript'

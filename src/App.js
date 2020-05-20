@@ -13,15 +13,16 @@ function App() {
   const baseUrl = `https://api.github.com/users/${input}`;
   const repoUrl = `https://api.github.com/users/${input}/repos`
   const [userData, setUserData] = useState("");
-  const [repoData, setRepoData] = useState([]);
+  const [repos, setRepos] = useState([]);
   const [searchDone, setSearchDone] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [userUndefined, setUserUndefined] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const repoData = [...repos]
+  console.log(repoData);
 
   function search(e) {
     if (e.key === "Enter") {
-      setLoading(true)
+      setIsLoading(true)
       setTimeout(() => {
         setInput("")
         fetch(baseUrl)
@@ -29,7 +30,9 @@ function App() {
           .then(data => {
             if (data.message) {
               setUserUndefined(true)
+              setIsLoading(false)
             } else {
+              setIsLoading(false)
               setUserData(data)
               setSearchDone(true)
               setUserUndefined(false)
@@ -38,6 +41,7 @@ function App() {
 
           );
         fetch(repoUrl)
+
           .then(res =>
             res.json()
 
@@ -46,10 +50,11 @@ function App() {
             if (data.message) {
               setUserUndefined(true)
             } else {
-              setRepoData(data)
+              setIsLoading(false)
+              setRepos(data)
               setUserUndefined(false)
             }
-            setLoading(false)
+
           }
           )
 
@@ -63,7 +68,7 @@ function App() {
       setIsLoading(false)
     }
   }
-  console.log(isLoading);
+
 
 
   return (
@@ -71,7 +76,7 @@ function App() {
     <div className="app">
       {isLoading &&
         <div className="loading">
-          <Loader type="Circles" color="#FFFFE0" height={80} width={80} />
+          <Loader type="Circles" color="#008080" height={80} width={80} />
         </div>}
       <Form.Input icon='users' iconPosition='left' placeholder='Search users...'
         onChange={e => { setInput(e.target.value) }}
@@ -83,23 +88,20 @@ function App() {
       />
       {searchDone ?
         <>
-          <Segment>
-            <UserCard userData={userData} loading={loading} />
+          <h2>User Details</h2>
+          <Segment compact style={{ backgroundColor: "inherit", margin: "0 auto" }}>
 
+            <UserCard userData={userData} loading={isLoading} />
           </Segment>
           <Segment>
-            <UserTable repoData={repoData} loading={loading} />
+            {repoData && repoData.length ? <UserTable repoData={repos} loading={isLoading} /> : null}
           </Segment>
         </>
         : <Navbar setUserUndefined={setUserUndefined} parentFunc={loadingIcon} />
 
       }
 
-      {
-        loading ? <div className="loading">
-          <Loader type="Circles" color="#FFFFE0" height={80} width={80} />
-        </div> : null
-      }
+
 
 
 
