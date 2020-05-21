@@ -1,12 +1,12 @@
 
 import React, { useState } from 'react';
 import './App.css';
-import { Form, Segment } from 'semantic-ui-react';
-import UserTable from './components/userInfoTable/UserTable';
-import UserCard from './components/userCard/UserCard';
+import { Form, Segment, Header, Icon } from 'semantic-ui-react';
 import Navbar from "./components/Navbar/Navbar"
 import Loader from 'react-loader-spinner'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import Main from './components/main/Main';
 
 function App() {
   const [input, setInput] = useState("");
@@ -17,13 +17,14 @@ function App() {
   const [searchDone, setSearchDone] = useState(false);
   const [userUndefined, setUserUndefined] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [userName, setUserName] = useState("");
   const repoData = [...repos]
-  console.log(repoData);
 
   function search(e) {
     if (e.key === "Enter") {
       setIsLoading(true)
       setTimeout(() => {
+        setUserName(input)
         setInput("")
         fetch(baseUrl)
           .then(res => res.json())
@@ -74,39 +75,39 @@ function App() {
   return (
 
     <div className="app">
-      {isLoading &&
-        <div className="loading">
-          <Loader type="Circles" color="#008080" height={80} width={80} />
-        </div>}
-      <Form.Input icon='users' iconPosition='left' placeholder='Search users...'
-        onChange={e => { setInput(e.target.value) }}
-        value={input}
-        onKeyDown={search}
-        className="input-field"
-        fluid
-        {...userUndefined && { error: { content: "Username doesn't exist" } }}
-      />
-      {searchDone ?
-        <>
-          <h2>User Details</h2>
-          <Segment compact style={{ backgroundColor: "inherit", margin: "0 auto" }}>
+      <Router>
+        {isLoading &&
+          <div className="loading">
+            <Loader type="Circles" color="#008080" height={80} width={80} />
+          </div>}
 
-            <UserCard userData={userData} loading={isLoading} />
-          </Segment>
-          <Segment>
-            {repoData && repoData.length ? <UserTable repoData={repos} loading={isLoading} /> : null}
-          </Segment>
-        </>
-        : <Navbar setUserUndefined={setUserUndefined} parentFunc={loadingIcon} />
-
-      }
+        <Form.Input
+          icon='users'
+          iconPosition='left'
+          placeholder='Search users...'
+          onChange={e => { setInput(e.target.value) }}
+          value={input}
+          onKeyDown={search}
+          className="input-field"
+          fluid
+          {...userUndefined && { error: { content: "Username doesn't exist" } }}
+        />
 
 
 
+        <Switch>
+
+          {searchDone && <Route path={`/${input}`} render={(props) => <Main {...props} userName={userName} repos={repos} repoData={repoData} userData={userData} loading={isLoading} />} />}
+
+
+          <Route exact path="/" render={() => <Navbar setUserUndefined={setUserUndefined} parentFunc={loadingIcon} />} />
+        </Switch>
 
 
 
 
+
+      </Router>
     </div >
 
   );
