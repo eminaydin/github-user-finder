@@ -1,12 +1,12 @@
 
 import React, { useState } from 'react';
 import './App.css';
-import { Form, Segment, Header, Icon } from 'semantic-ui-react';
-import Navbar from "./components/Navbar/Navbar"
+import { Form } from 'semantic-ui-react';
+import Navbar from "./components/Navbar"
 import Loader from 'react-loader-spinner'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import Main from './components/main/Main';
+import Main from './components/Main';
 
 function App() {
   const [input, setInput] = useState("");
@@ -14,7 +14,6 @@ function App() {
   const repoUrl = `https://api.github.com/users/${input}/repos`
   const [userData, setUserData] = useState("");
   const [repos, setRepos] = useState([]);
-  const [searchDone, setSearchDone] = useState(false);
   const [userUndefined, setUserUndefined] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userName, setUserName] = useState("");
@@ -29,23 +28,18 @@ function App() {
         fetch(baseUrl)
           .then(res => res.json())
           .then(data => {
+            setIsLoading(false)
             if (data.message) {
               setUserUndefined(true)
-              setIsLoading(false)
             } else {
-              setIsLoading(false)
               setUserData(data)
-              setSearchDone(true)
-              setUserUndefined(false)
+
             }
           }
-
           );
         fetch(repoUrl)
-
           .then(res =>
             res.json()
-
           )
           .then(data => {
             if (data.message) {
@@ -55,18 +49,8 @@ function App() {
               setRepos(data)
               setUserUndefined(false)
             }
-
-          }
-          )
-
+          })
       }, 1000);
-    }
-  }
-  function loadingIcon(param) {
-    if (param === true) {
-      setIsLoading(true)
-    } else {
-      setIsLoading(false)
     }
   }
 
@@ -76,6 +60,7 @@ function App() {
 
     <div className="app">
       <Router>
+        {userName && <Redirect to={`/repositories/${userName}`} />}
         {isLoading &&
           <div className="loading">
             <Loader type="Circles" color="#008080" height={80} width={80} />
@@ -96,17 +81,9 @@ function App() {
 
 
         <Switch>
-
-          {searchDone && <Route path={`/${input}`} render={(props) => <Main {...props} userName={userName} repos={repos} repoData={repoData} userData={userData} loading={isLoading} />} />}
-
-
-          <Route exact path="/" render={() => <Navbar setUserUndefined={setUserUndefined} parentFunc={loadingIcon} />} />
+          <Route path={`/repositories/${userName}`} render={(props) => <Main {...props} userName={userName} repos={repos} repoData={repoData} userData={userData} loading={isLoading} />} />
+          <Route exact path="/" render={() => <Navbar setUserUndefined={setUserUndefined} />} />
         </Switch>
-
-
-
-
-
       </Router>
     </div >
 

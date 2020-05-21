@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Table } from 'semantic-ui-react';
 import Moment from 'react-moment';
 const UserTable = ({ repoData }) => {
-    const [userData, setUserData] = useState(repoData);
+    const userData = [...repoData];
 
 
 

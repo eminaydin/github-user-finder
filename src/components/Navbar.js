@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
 import { Menu, Header } from 'semantic-ui-react'
-import PopularCards from '../PopularCards/PopularCards';
-import "../../App.css"
+import PopularCards from './PopularCards';
+import "../App.css"
 import UseAnimations from 'react-useanimations';
-
-const Navbar = (props) => {
+import Loader from 'react-loader-spinner'
+import { useHistory } from 'react-router-dom';
+const Navbar = () => {
     const [activeItem, setActiveItem] = useState("");
     const [popularRepos, setPopularRepos] = useState("");
     const [navClicked, setNavClicked] = useState(false);
     const [loading, setLoading] = useState(false);
-
+    const history = useHistory();
 
     function handleItemClick(e, { name }) {
-        props.setUserUndefined(false)
+        history.replace({
+            pathname: "/",
+            search: `?language=${name}`
+        })
         setLoading(true)
         setActiveItem(name)
         setTimeout(() => {
@@ -26,12 +30,14 @@ const Navbar = (props) => {
                 )
         }, 200);
     }
-    if (loading === true) {
-        props.parentFunc(true)
-    } else { props.parentFunc(false) }
+
 
     return (
         <>
+            {loading &&
+                <div className="loading">
+                    <Loader type="Circles" color="#008080" height={80} width={80} />
+                </div>}
             <Header as='h2' icon textAlign='center'>
                 <UseAnimations animationKey="github" size={60} style={{
                     margin: "auto"
