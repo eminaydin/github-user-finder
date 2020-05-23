@@ -3,6 +3,8 @@ import { Card, Image, Icon } from 'semantic-ui-react';
 import Moment from 'react-moment';
 
 const UserCard = ({ userData }) => {
+    const formattedDate = userData.created_at;
+
     return (
         <div className="user-card">
             <Card centered>
@@ -27,8 +29,10 @@ const UserCard = ({ userData }) => {
                 </Card.Content>
                 <Card.Content extra>
                     <a href="#">
-                        <Icon name='time' />
-                        <Moment format="DD-MM-YYYY"> {userData.created_at} </Moment>
+                        <Icon name='time' />Member since:
+                        <Moment format="DD-MM-YYYY">
+                            {formattedDate}
+                        </Moment>
                     </a>
                 </Card.Content>
             </Card>
