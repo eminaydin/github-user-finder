@@ -82,7 +82,7 @@ function App() {
 
         <Switch>
           <Route path={`/repositories/${userName}`} render={(props) => <Main {...props} userName={userName} repos={repos} repoData={repoData} userData={userData} loading={isLoading} />} />
-          <Route exact path="/" render={() => <Navbar setUserUndefined={setUserUndefined} />} />
+          <Route exact path="/" render={() => <Navbar />} />
         </Switch>
       </Router>
     </div >
