@@ -1,13 +1,31 @@
-## The Project
+## Github User Finder
 
-This is the React version of the previously made project. I've been working on Github API for a while before I get to start with React. I've created several projects where I used fetch-post requests to create resositories and display user infos by using their API. In this project I wanted to implement same idea by using React which was a great exercise for myself. 
+<a href="https://react-github-userfinder.netlify.app/" target="_blank"><h3 align="left">Click here for demo</h3></a>
 
-Project consists of 5 components and app.js file. Basically on the home page there is a input field for user to search for Github usernames and also a navbar. In the navbar user can click on several programming languages and depending on the language most popular repositories of that language will be displayed. 
+## Table of Contents
 
-If the search is done user is redirected to another page where information about searched user is displayed. Along with personal information detailed repository informations are displayed too. On the column clicks I've made it possible to do sorting by the column. Assuming that description column is clicked, whole table will be sorted by description either ascending or descending depending on the click.
+- [General info](#general-info)
+- [Preview](#preview)
+- [Technologies](#technologies)
+- [Contact](#contact)
 
-## Challenges
+## General Info
 
-To form up main structure was not really difficult for me. I'm used to play with API's and thus don't have that much trouble with it. But to handle bad requests was the tricky part. For example imagine a scenario where user types a valid username and has been directed to repository information page, if the second search is invalid than component would crash. I had to find a way to handle with these sort of small problems. As one can imagine those small ones could cause really big troubles. That's why I've tried my best to handle bad requests. 
+This is a re-creation of same project that I had previously done in plain Javascript. I just wanted to give it a go and challenge myself to do the same in React. In fact one can achieve quite a lot with Github API. In this website, you can see both the popular repositories of the week and user details. User can choose between range of several programming languages to get popular repositories of that language. The input field on the top will give possibility to search for users on Github. You can just give it a try and find your own account there!
 
-Live version of the project is here: https://react-github-userfinder.netlify.app/
+## Preview
+
+![Github User Finder](src/assets/github-user-finder.gif)
+
+## Technologies
+
+- HTML
+- CSS
+- Javascript
+- React
+- React-router
+- Semantic-Ui
+
+## Contact
+
+Created by [eminaydin](https://github.com/eminaydin) - feel free to contact me for any inquiries!
