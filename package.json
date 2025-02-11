@@ -15,7 +15,7 @@
     "react-materialize": "^3.8.10",
     "react-moment": "^0.9.7",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1",
+    "react-scripts": "5.0.1",
     "react-useanimations": "^1.2.13",
     "semantic-ui-react": "^0.88.2"
   },
